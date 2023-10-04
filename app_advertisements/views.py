@@ -8,3 +8,6 @@ def main(request):
 
 def top_sellers(request):
     return render(request, "top-sellers.html")
+
+def mini_game(request):
+    return render(request, "mini_game.html")
