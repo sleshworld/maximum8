@@ -38,7 +38,27 @@ function Click()
     // меняем расположение на новое
     but.style.left = newX + 'px'
     but.style.top = newY + 'px'
+    // but.style.backgroundColor = RandomColor
+    // добавляем новый класс
+    but.classList.add("clicked")
+    // удаляем класс через 1000 миллисекунд (1 секунду)
+    setTimeout(function()
+    {
+        but.classList.remove("clicked")
+    }, 1000)
 }
+
+function RandomColor()
+{
+    let letters = "0123456789ABCDEF"
+    let color = "#"
+    for (let i=0; i<6; i++)
+    {
+        color += letters[Math.floor(Math.random()*16)]
+    }
+    return color
+}
+
 function Restart()
 {
     localStorage.clear()

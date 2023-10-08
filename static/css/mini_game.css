@@ -1,0 +1,17 @@
+body{
+    background: rgb(41, 40, 40);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.clicked{
+    transform: scale(1.5);
+}
+
+.but{
+    background: rgb(70, 67, 67);
+    width: 80px;
+    height: 30px;
+}
