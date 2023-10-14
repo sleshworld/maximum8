@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% load static %} 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,26 +8,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/fontello.css">
   <title>Advertisement-post</title>
 </head>
 
 <body>
-
-
+  {% block content%}
   <ul class="nav nav-pills sticky-top bg-white nav-fill">
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="{% url 'main' %}">
         <span style="font-weight: bold;">Главная</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="top-sellers.html"><span style="font-weight: bold;">Топ продавцов</span>
+      <a class="nav-link" href="{% url 'top-sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="advertisement-post.html">
+      <a class="nav-link active" aria-current="page" href="{% url 'adv-post' %}">
         <span style="font-weight: bold;">Разместить объявление</span>
       </a>
     </li>
@@ -58,46 +57,14 @@
     </div>
   </div>
   <div class="container">
-    <form method="post">
+    <!-- enctype - для отправки файлов (картинки в нашем случае) -->
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
       <div class="row mb-3">
         <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Title</label>
-          <div class="col-sm-4 offset-4 w-25">
-            <input type="text" class="form-control form-control-lg">
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Description</label>
-          <div class="col-sm-4 offset-4 w-25">
-              <label for="" class="form-label"></label>
-              <textarea class="form-control" name="" id="" rows="3"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Photo</label>
-          <div class="col-sm-4 offset-4 w-25">
-            <input type="file" class="form-control form-control-lg">
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Price</label>
-          <div class="col-sm-4 offset-4 w-25">
-            <input type="text" class="form-control form-control-lg">
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <div class="offset-4 w-25">
-            <input type="checkbox" class="form-check-input">
-            <label class="form-check-label">Auction</label>
-          </div>
+          <!-- расположит каждое поле формы в качестве <p>title</p>... -->
+          <!-- as_div, as_ul, as_table -->
+            {{  form.as_p  }}
         </div>
       </div>
       <div class="row mb-3 offset-sm-5">
@@ -105,8 +72,9 @@
           <button type="submit" class="btn btn-success">Принять</button>
         </div>
       </div>
+
     </form>
   </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
+{% endblock %}
 </body>
 </html>

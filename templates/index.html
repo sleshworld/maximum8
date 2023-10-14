@@ -4,7 +4,7 @@
 <!-- укажем, что в это html мы будем использовать статик файлы -->
 {% load static %} 
 <head>
-  <title>Index</title>
+  <title>{% block title %}Index{% endblock %}</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="advertisement-post.html">
+      <a class="nav-link" href="{% url 'adv-post' %}">
         <span style="font-weight: bold;">Разместить объявление</span>
       </a>
     </li>
@@ -98,87 +98,32 @@
       </form>
     </div>
     <div class="col">
+      {%  for ad in adverts  %}
       <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
         <div class="row g-0">
           <div class="col-md-4">
             <a href="advertisement.html" class="nav-link">
-              <img src="{% static 'img/table.png' %}" class="img-fluid rounded-start" alt="Card title">
+              <img src="{%  if ad.image  %}{{  ad.image.url }} {% else %} {% static 'img/table.png' %} {%  endif  %}" class="img-fluid rounded-start" alt="Card title">
             </a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="advertisement.html" class="nav-link"><strong>Продаю балкон</strong></a>
+                <a href="advertisement.html" class="nav-link"><strong>{{  ad.title  }}</strong></a>
               </h5>
               <a href="advertisement.html" class="nav-link">
                 <p class="card-text">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, nulla eos neque dolorum quis aliquid
-                  deleniti molestias, nobis debitis expedita, fugiat ea. Delectus harum quo dolores modi cupiditate in
-                  tempore. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas quis similique quas
-                  architecto doloremque culpa consequatur excepturi provident quo fugit repudiandae inventore quae ea
-                  sequi, recusandae aliquid veritatis rerum quibusdam?
+                  {{  ad.description  }}
                 </p>
-                <span>Автор: Никнейм автора объявления</span>
-                <p class="card-text"><small class="text-muted">Размещено: здесь должна стоять дата</small></p>
+                <p>Цена: {{  ad.price  }}</p>
+                <span>Автор: {{ ad.user }}</span>
+                <p class="card-text"><small class="text-muted">Размещено: {{  ad.created_date  }}</small></p>
               </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <a href="advertisement.html" class="nav-link">
-              <img src="{% static 'img/table.png' %}" class="img-fluid rounded-start" alt="Card title">
-            </a>
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">
-                <a href="advertisement.html" class="nav-link"><strong>Продам гараж</strong></a>
-              </h5>
-              <a href="advertisement.html" class="nav-link">
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, nulla eos neque dolorum quis aliquid
-                  deleniti molestias, nobis debitis expedita, fugiat ea. Delectus harum quo dolores modi cupiditate in
-                  tempore. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas quis similique quas
-                  architecto doloremque culpa consequatur excepturi provident quo fugit repudiandae inventore quae ea
-                  sequi, recusandae aliquid veritatis rerum quibusdam?
-                </p>
-                <span>Автор: Никнейм автора объявления</span>
-                <p class="card-text"><small class="text-muted">Размещено: здесь должна стоять дата</small></p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <a href="advertisement.html" class="nav-link">
-              <img src="{% static 'img/table.png' %}" class="img-fluid rounded-start" alt="Card title">
-            </a>
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">
-                <a href="advertisement.html" class="nav-link"><strong>Куплю баню</strong></a>
-              </h5>
-              <a href="advertisement.html" class="nav-link">
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, nulla eos neque dolorum quis aliquid
-                  deleniti molestias, nobis debitis expedita, fugiat ea. Delectus harum quo dolores modi cupiditate in
-                  tempore. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas quis similique quas
-                  architecto doloremque culpa consequatur excepturi provident quo fugit repudiandae inventore quae ea
-                  sequi, recusandae aliquid veritatis rerum quibusdam?
-                </p>
-                <span>Автор: Никнейм автора объявления</span>
-                <p class="card-text"><small class="text-muted">Размещено: здесь должна стоять дата</small></p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {%  endfor  %}
     </div>
   </div>
   <footer style="padding: 100px;" class="bg-primary">

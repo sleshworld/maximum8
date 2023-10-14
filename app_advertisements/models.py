@@ -3,6 +3,11 @@ from django.contrib import admin
 # python manage.py makemigrations
 # python manage.py migrate
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
 # Create your models here.
 # создаем таблицу и модель с помощью наследования
 class Advertisement(models.Model):
@@ -16,6 +21,10 @@ class Advertisement(models.Model):
     # столбцы дат с автоматическим заполнением
     created_at = models.DateTimeField(auto_now_add=True) # автоматом при добавлении
     updated_at = models.DateTimeField(auto_now=True) # автоматом при изменении
+    # to - ссылка на таблицу, on_delete - что делать при удалении
+    user = models.ForeignKey(to=User, verbose_name="Пользователь", on_delete=models.CASCADE)
+
+    image = models.ImageField(verbose_name="Изображение", upload_to="advertisements2/")
 
     class Meta:
         db_table = 'advertisements'
@@ -34,9 +43,25 @@ class Advertisement(models.Model):
             return html.format_html("<span style='color:green; font-style: italic; font-weight: bold;'>Сегодня в {}</span>", created_time)
         else:
             return self.created_at.strftime("%d:%m:%y в %H:%M:%S")
-        
 
+    @admin.display(description="Дата обновления")
+    def updated_date(self): # (новое название поля - created_date)
+        from django.utils import timezone, html
+        if self.updated_at.date() == timezone.now().date(): # если дата создания объявления совпадает с нашей датой
+            # сохраним время создания как строку
+            updated_time = self.updated_at.time().strftime("%H:%M:%S")
+            # возвращаем html код
+            return html.format_html("<span style='color:green; font-style: italic; font-weight: bold;'>Сегодня в {}</span>", updated_time)
+        else:
+            return self.updated_at.strftime("%d:%m:%y в %H:%M:%S")
     
+    @admin.display(description="Картинка")
+    def show_image(self):
+        from django.utils import html
+        if self.image:
+            return html.format_html("<img src='{}' style ='width:100px;'>", self.image.url)
+
+
 
 
 # # А что за скобки то ?

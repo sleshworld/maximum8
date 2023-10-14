@@ -5,7 +5,7 @@ from .models import Advertisement # импортируем модель для �
 # класс для управления моделью из админки
 class AdvertisementAdmin(admin.ModelAdmin):
     # столбцы, которые будут отображаться
-    list_display = ["id", "title", "description", "price", "created_date", "auction"]
+    list_display = ["id", "title", "description", "price", "user", "created_date", "auction", "updated_date", "show_image"]
     # список полей для фильтрации
     list_filter = ["auction", "created_at", "price"]
     # добавляем действие в отображение
@@ -13,7 +13,7 @@ class AdvertisementAdmin(admin.ModelAdmin):
     # кстомизация полей ввода
     fieldsets = (
         ("Общее", { # подзаголовок
-            "fields": ("title", "description") # поля внутри него
+            "fields": ("title", "description", "image", "user") # поля внутри него
         }),
         ("Финансы", { # подзаголовок
             "fields": ("price", "auction"), # поля внутри него

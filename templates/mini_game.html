@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/mini_game.css' %}">
 </head>
 <body>
+    <h1>{{  some_info  }}</h1>
+    <h2>{{  valute  }}</h2>
+    {%  for num in list  %}
+        <p>{{  num  }}</p>
+    {%  endfor  %}
     <h1 class="login">Логин: </h1>
     <button onclick="Restart()">Restart</button>
     <h2 class="points">Очки: </h2>
