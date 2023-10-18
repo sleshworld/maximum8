@@ -1,19 +1,14 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 
+{% load static %} 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/fontello.css">
-  <title>Login</title>
+  <title>{% block title %}Login{% endblock %}</title>
 </head>
-
 <body>
 
-
+  {% block content%}
   <ul class="nav nav-pills sticky-top bg-white nav-fill">
     <li class="nav-item">
       <a class="nav-link" href="index.html">
@@ -35,12 +30,12 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="login.html">
+      <a class="nav-link" href="{% url 'login' %}">
         <span style="font-weight: bold;">Войти</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="profile.html">
+      <a class="nav-link" href="{% url 'profile' %}">
         <span style="font-weight: bold;">Профиль</span>
       </a>
     </li>
@@ -58,20 +53,25 @@
       </div>
     </div>
   </div>
+  {% if error %}
+  <span>{{error}}</span>
+  {% endif %}
+
     <form method="post">
+      {% csrf_token %}
       <div class="row mb-3">
         <div class="col">
           <label class="col-sm-4 col-form-label offset-4">Username</label>
           <div class="col-sm-4 offset-4 w-25">
-            <input type="text" class="form-control form-control-lg">
+            <input type="text" class="form-control form-control-lg" name="username">
           </div>
         </div>
-      </div>
+      </div>  
       <div class="row mb-3">
         <div class="col">
           <label class="col-sm-4 col-form-label offset-4">Password</label>
           <div class="col-sm-4 offset-4 w-25">
-            <input type="password" class="form-control form-control-lg">
+            <input type="password" class="form-control form-control-lg" name="password">
           </div>
         </div>
       </div>
@@ -82,6 +82,6 @@
       </div>
     </form>
   </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
+{% endblock %}
 </body>
 </html>

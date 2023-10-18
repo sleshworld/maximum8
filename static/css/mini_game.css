@@ -4,6 +4,7 @@ body{
     border: none;
     cursor: pointer;
     transition: transform 0.3s ease;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .clicked{
@@ -14,4 +15,8 @@ body{
     background: rgb(70, 67, 67);
     width: 80px;
     height: 30px;
+}
+
+.fo{
+    font-family: 'Courier New', Courier, monospace;
 }

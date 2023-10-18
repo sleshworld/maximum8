@@ -1,21 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Advertisement
-
 from django.shortcuts import redirect 
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def main(request):
     # получаем все записи из БД
     adverts = Advertisement.objects.all()
     context = {"adverts": adverts}
-    return render(request, "index.html", context=context)
+    return render(request, "app_advertisements/index.html", context=context)
 
 
 def top_sellers(request):
-    return render(request, "top-sellers.html")
+    return render(request, "app_advertisements/top-sellers.html")
 
+@login_required(login_url=reverse_lazy("login"))
 def account(request):
     username = ""
     if request.method == "POST": # если метод запроса = POST (отправить)
@@ -23,9 +24,10 @@ def account(request):
         d = request.POST
         username = d.get("username")
     context = {"username": username}
-    return render(request, "account.html", context=context)
+    return render(request, "app_advertisements/account.html", context=context)
 
 from .forms import AdvertisementForm
+@login_required(login_url=reverse_lazy("login"))
 def advertisement_post(request):
     if request.method == "POST":
         # передаем в форму данные и файлы
@@ -43,8 +45,9 @@ def advertisement_post(request):
             return redirect(url)
     form = AdvertisementForm()
     context = {"form": form}
-    return render(request, "advertisement-post.html", context=context)
+    return render(request, "app_advertisements/advertisement-post.html", context=context)
 
+@login_required(login_url=reverse_lazy("login"))
 def mini_game(request):
     
     import requests
@@ -64,4 +67,4 @@ def mini_game(request):
     context = {"some_info": 123, 
     "valute": getCourse("R01235"), 
     "list": [1, 2, 3, 4]}
-    return render(request, "mini_game.html", context=context)
+    return render(request, "app_advertisements/mini_game.html", context=context)

@@ -7,8 +7,12 @@
     <title>{% block title %}Document{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fontello.css' %}">
+    <link rel="stylesheet" href="{% static 'new.css' %}">
 </head>
 <body>
+    {% block nav %}
+
+    {% endblock %}
     {% block content %}
     
     {% endblock %}

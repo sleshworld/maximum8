@@ -1,17 +1,14 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 
+{% load static %} 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/fontello.css">
-  <title>Profile</title>
+  <title>{% block title %}Profile{% endblock %}</title>
 </head>
 
 <body>
+  {% block content%}
   <ul class="nav nav-pills sticky-top bg-white nav-fill">
     <li class="nav-item">
       <a class="nav-link" href="index.html">
@@ -33,26 +30,29 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="login.html">
+      <a class="nav-link" href="{% url 'login' %}">
         <span style="font-weight: bold;">Войти</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="profile.html">
+      <a class="nav-link" href="{% url 'profile' %}">
         <span style="font-weight: bold;">Профиль</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="{% url 'logout' %}">
         <span style="font-weight: bold;">Выйти</span>
       </a>
     </li>
   </ul>
 <div class="col" style="margin: 50px;">
   <div class="display-2">
-    <span class="badge bg-primary">Сейчас вы находитесь на сайте под ником "username".</span>
+    <span class="badge bg-primary">Сейчас вы находитесь на сайте под ником {{ user }}.</span>
   </div>
 </div>
-<script src="js/bootstrap.bundle.min.js"></script>
+{% if user.is_authenticated %}
+<h1>Че пришел, ты уже залогинен</h1>
+{% endif %}
+{% endblock %}
 </body>
 </html>
