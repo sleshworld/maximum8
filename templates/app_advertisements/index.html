@@ -94,7 +94,7 @@
       </ul>
       <form class="row g-3" method="get">
         <div class="col-auto w-50">
-          <input type="text" class="form-control" name="query">
+          <input type="text" class="form-control" name="query" value="{% if title %}{{  title  }} {%  endif  %}">
         </div>
         <div class="col-auto">
           <button type="submit" class="btn btn-success mb-3">Найти</button>
@@ -106,16 +106,16 @@
       <div class="card mb-2" style="max-width: 1200px; margin-top: 20px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <a href="advertisement.html" class="nav-link">
+            <a href="{{  ad.get_absolute_url  }}" class="nav-link">
               <img src="{%  if ad.image  %}{{  ad.image.url }} {% else %} {% static 'img/table.png' %} {%  endif  %}" class="img-fluid rounded-start" alt="Card title">
             </a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="advertisement.html" class="nav-link"><strong>{{  ad.title  }}</strong></a>
+                <a href="{{  ad.get_absolute_url  }}" class="nav-link"><strong>{{  ad.title  }}</strong></a>
               </h5>
-              <a href="advertisement.html" class="nav-link">
+              <a href="{{  ad.get_absolute_url  }}" class="nav-link">
                 <p class="card-text">
                   {{  ad.description  }}
                 </p>

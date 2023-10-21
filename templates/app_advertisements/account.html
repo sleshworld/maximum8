@@ -12,6 +12,14 @@
         <input type="text" name="username">
         <button type="submit">Отправить</button>
     </form>
-
+    <form action="" method="get">
+        <input type="text" name="query">
+        <button type="submit">Поиск</button>
+    </form>
+    <div>
+        {% for name in result %}
+        <p>{{name}}</p>
+        {% endfor %}
+    </div>
 </body>
 </html>

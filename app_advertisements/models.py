@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib import admin
 # python manage.py makemigrations
 # python manage.py migrate
-
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -60,6 +60,9 @@ class Advertisement(models.Model):
         from django.utils import html
         if self.image:
             return html.format_html("<img src='{}' style ='width:100px;'>", self.image.url)
+    
+    def get_absolute_url(self):
+        return reverse('adv-detail', kwargs={"pk": self.pk})
 
 
 

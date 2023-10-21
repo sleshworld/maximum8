@@ -13,26 +13,38 @@ def main(request):
     title = request.GET.get("query")
     # если есть query 
     if title:
-        # применяем фильтр на объявления
-        adverts = Advertisement.objects.filter(title=title)
+        # применяем фильтр на содержание поискового элемента в запросе на объявления
+        adverts = Advertisement.objects.filter(title__icontains=title)
     else:
         # получаем все записи из БД
         adverts = Advertisement.objects.all()
-    context = {"adverts": adverts}
+    context = {"adverts": adverts, "title": title}
     return render(request, "app_advertisements/index.html", context=context)
+from django.contrib.auth import get_user_model
 
-
+User = get_user_model()
+from django.db.models import Count
 def top_sellers(request):
-    return render(request, "app_advertisements/top-sellers.html")
+    users = User.objects.annotate(adv_count = Count('advertisement')).order_by("-adv_count")
+    context = {"users":users}
+    return render(request, "app_advertisements/top-sellers.html", context= context)
 
 @login_required(login_url=reverse_lazy("login"))
 def account(request):
+    usernames = ["sleshworld", "Mikhail", "Dmitriy"]
     username = ""
     if request.method == "POST": # если метод запроса = POST (отправить)
         # получаем словарь с ключами = name в input и значениями, которые ввел пользователь
         d = request.POST
         username = d.get("username")
-    context = {"username": username}
+    else:
+        result = []
+        query = request.GET.get("query")
+        if query:
+            for name in usernames:
+                if query.lower() in name.lower():
+                    result.append(name)
+    context = {"username": username, "result": result}
     return render(request, "app_advertisements/account.html", context=context)
 
 from .forms import AdvertisementForm
@@ -77,3 +89,9 @@ def mini_game(request):
     "valute": getCourse("R01235"), 
     "list": [1, 2, 3, 4]}
     return render(request, "app_advertisements/mini_game.html", context=context)
+
+# для получения конкретного объявления по его id
+def advertisement_detail(request, pk):
+    advertisement = Advertisement.objects.get(id=pk)
+    context = {"advertisement": advertisement}
+    return render(request, "app_advertisements/advertisement.html", context=context)

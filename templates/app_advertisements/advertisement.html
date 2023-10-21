@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,27 +60,20 @@
       <div class="row g-0">
         <div class="col-md-4">
           <a href="#" class="nav-link">
-            <img src="img/adv.png" class="img-fluid rounded-start" alt="Card title">
+            <img src="{%  if advertisement.image  %}{{  advertisement.image.url }} {% else %} {% static 'img/table.png' %} {%  endif  %}" class="img-fluid rounded-start" alt="Card title">
           </a>
         </div>
         <div class="col">
           <div class="card-body">
             <h5 class="card-title">
-              <a href="#" class="nav-link"><strong>Продам гараж</strong></a>
+              <a href="#" class="nav-link"><strong>{{ advertisement.title }}</strong></a>
             </h5>
             <p class="card-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit eum aut commodi dolores
-              praesentium fugiat! Maxime perspiciatis iste, voluptas tenetur voluptatem at beatae, aliquid
-              libero odit ab accusamus tempore assumenda.
-              Hic asperiores pariatur recusandae sapiente doloremque illo laudantium placeat sed fugit!
-              Dolorem nulla quaerat doloremque odit impedit unde esse dolorum tenetur quos error! Iure
-              quas, illo expedita sed suscipit ullam.
-              Illo quam odio, quas laborum natus error doloremque totam maiores dolorum fugit aliquam, sit
-              numquam impedit praesentium facilis amet perspiciatis facere rem magnam consectetur, nobis
-              est. Qui quod fuga illum.
+              {{ advertisement.description }}
             </p>
-            <span>Автор: "username"</span>
-            <p class="card-text"><small class="text-muted">Размещено: "дата"</small></p>
+            <p>Цена: {{ advertisement.price }}</p>
+            <span>Автор: {{ advertisement.user }}</span>
+            <p class="card-text"><small class="text-muted">Размещено: {{ advertisement.created_date }}</small></p>
           </div>
         </div>
       </div>
