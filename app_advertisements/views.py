@@ -7,8 +7,17 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def main(request):
-    # получаем все записи из БД
-    adverts = Advertisement.objects.all()
+    # в гет запросе смотрим был ли элемент и именем query
+    # если он был - мы получим его значение, а если не было
+    # то None (особенность работы get в dictionary)
+    title = request.GET.get("query")
+    # если есть query 
+    if title:
+        # применяем фильтр на объявления
+        adverts = Advertisement.objects.filter(title=title)
+    else:
+        # получаем все записи из БД
+        adverts = Advertisement.objects.all()
     context = {"adverts": adverts}
     return render(request, "app_advertisements/index.html", context=context)
 

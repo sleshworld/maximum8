@@ -24,16 +24,8 @@
         <span style="font-weight: bold;">Разместить объявление</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="register.html">
-        <span style="font-weight: bold;">Регистрация</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'login' %}">
-        <span style="font-weight: bold;">Войти</span>
-      </a>
-    </li>
+
+    {% if user.is_authenticated %}
     <li class="nav-item">
       <a class="nav-link" href="{% url 'profile' %}">
         <span style="font-weight: bold;">Профиль</span>
@@ -44,6 +36,18 @@
         <span style="font-weight: bold;">Выйти</span>
       </a>
     </li>
+    {% else %}
+    <li class="nav-item">
+      <a class="nav-link" href="register.html">
+        <span style="font-weight: bold;">Регистрация</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'login' %}">
+        <span style="font-weight: bold;">Войти</span>
+      </a>
+    </li>
+    {% endif %}
   </ul>
 
   <div id="carouselExampleControls" class="carousel slide bg-primary" data-bs-ride="carousel">
@@ -88,9 +92,9 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Еще что-нибудь</a>
         </li>
       </ul>
-      <form class="row g-3">
+      <form class="row g-3" method="get">
         <div class="col-auto w-50">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" name="query">
         </div>
         <div class="col-auto">
           <button type="submit" class="btn btn-success mb-3">Найти</button>

@@ -38,3 +38,18 @@ def logout_view(request):
 @login_required(login_url=reverse_lazy("login"))
 def profile_view(request):
     return render(request, "app_auth/profile.html")
+# импортируем класс формы
+from .forms import RegisterForm
+def register(request):
+    # если пришел пост запрос (не гет)
+    if request.method == "POST":
+        # в форму закидываем отправленные данные
+        form = RegisterForm(request.POST)
+        # проверяем на валидность
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(reverse("profile"))
+    else:
+        form = RegisterForm()
+    return render(request, "app_auth/register.html", context = {"form": form})

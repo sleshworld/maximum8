@@ -54,46 +54,9 @@
     </div>
   </div>
     <form method="post">
+      {% csrf_token %}
       <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Username</label>
-          <div class="col-sm-4 offset-4 w-25">
-            <input type="text" class="form-control form-control-lg">
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Name</label>
-          <div class="col-sm-4 offset-4 w-25">
-            <input type="text" class="form-control form-control-lg">
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Surname</label>
-          <div class="col-sm-4 offset-4 w-25">
-            <input type="text" class="form-control form-control-lg">
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Password</label>
-          <div class="col-sm-4 offset-4 w-25">
-            <input type="password" class="form-control form-control-lg">
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <label class="col-sm-4 col-form-label offset-4">Password confirmation</label>
-          <div class="col-sm-4 offset-4 w-25">
-            <input type="password" class="form-control form-control-lg">
-            <div class="form-label bg-warning" style="margin: 10px 0px;">Ошибка (если будет)</div>
-          </div>
-        </div>
+        {{  form.as_p  }}
       </div>
       <div class="row mb-3 offset-sm-5">
         <div class="col">

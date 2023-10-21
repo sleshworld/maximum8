@@ -1,5 +1,6 @@
 from django import forms
 from .models import Advertisement
+from django.core.exceptions import ValidationError
 # создаем собственную форму
 # class AdvertisementForm(forms.Form):
 #     title = forms.CharField(max_length=64, widget=forms.TextInput(attrs={"class": "form-control form-control-lg"}))
@@ -19,7 +20,7 @@ class AdvertisementForm(forms.ModelForm):
             'auction': forms.CheckboxInput(attrs={"class": "form-check-input"}),
             'image': forms.FileInput(attrs={"class": "form-control form-control-lg"})
         }
-    def clean_recipients(self):
+    def clean_title(self):
         data = self.cleaned_data['title']
         if data and data.startswith("?"):
             raise ValidationError("Вопросительный знак в заголовке")
